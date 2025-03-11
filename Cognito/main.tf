@@ -5,10 +5,11 @@ resource "aws_cognito_user_pool" "primary" {
 resource "aws_cognito_user_pool_client" "intercom" {
   name = "intercom"
   user_pool_id = aws_cognito_user_pool.primary.id
-  generate_secret = true
+  generate_secret = false
   allowed_oauth_flows = ["code"]
   allowed_oauth_scopes = ["email", "openid", "profile"]
   allowed_oauth_flows_user_pool_client = true
+  explicit_auth_flows = ["USER_PASSWORD_AUTH"]
   callback_urls = [ var.aws_cognito_intercom_redirect_url ]
 }
 
